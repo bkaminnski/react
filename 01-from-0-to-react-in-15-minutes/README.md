@@ -111,8 +111,8 @@ There is a couple of ways to run the project. Type:
 ## Explanations
 
 - Parameters used in `npm install`:
-    - `--save` for runtime dependencies
-    - `--save-dev` for compilation time dependencies
+    - `--save` for runtime dependencies, they go to the `"dependencies"` section in `package.json`
+    - `--save-dev` for compilation time dependencies, they go to the `"devDependencies"` section in `package.json`
 - `.jsx` extension:
     - lets you use HTML-like notation in javascript files (thought it's neither a string nor HTML)
     - for example here: `ReactDOM.render(<HelloWorld/>, document.getElementById('helloWorld'));`
