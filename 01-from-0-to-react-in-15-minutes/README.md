@@ -24,9 +24,9 @@ Now continue to the **Create files** section below.
 
 ### Based on this git project
 
-- Clone this git project `git clone https://github.com/bkaminnski/react.git`.
-- Start console in 
-- Run `npm install` to download dependencies based on `package.json`
+- Clone this git project `git clone https://github.com/bkaminnski/react.git`
+- Start console in `01-from-0-to-react-in-15-minutes` folder.
+- Run `npm install` to download dependencies based on `package.json` file.
 
 ## Create files
 
