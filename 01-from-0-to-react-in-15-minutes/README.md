@@ -28,6 +28,8 @@ Now continue to the **Create files** section below.
 - Start console in `01-from-0-to-react-in-15-minutes` folder.
 - Run `npm install` to download dependencies based on `package.json` file.
 
+Now continue to the **Run the project** section below.
+
 ## Create files
 
 Type `code .` to open Visual Studio Code. We will need `index.html` as an entry page for the app,
@@ -79,8 +81,6 @@ export default class Message extends React.Component {
 }
 ```
 
-## Run the project
-
 Before runnig the project, we need a webpack configuration in `webpack.config.js` file.
 ```
 module.exports = {
@@ -100,6 +100,8 @@ module.exports = {
   },
 };
 ```
+
+## Run the project
 
 There is a couple of ways to run the project. Type:
 - `webpack-dev-server --progress --colors` to start webpack server and open [http://localhost:8080/webpack-dev-server/](http://localhost:8080/webpack-dev-server/) in a browser.
