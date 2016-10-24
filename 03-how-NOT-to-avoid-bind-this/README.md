@@ -18,11 +18,11 @@ It took me a while to realise that babel was missing some feature. One which see
 
 ## Solution (kind of)
 
-In addition to all the dependencies in [this](https://github.com/bkaminnski/react/tree/master/01-from-0-to-react-in-15-minutes) tutorial, I installed `stage-2` dependency: `npm install babel-preset-stage-2 --save-dev`. I also added `stage-2` preset in [webpack.config.js](): `presets: ['es2015', 'react', 'stage-2']`. Now that the code was running fine, it was the time to understand why this `... = () => {...}` syntax was introduced at all.
+In addition to all the dependencies in [this](https://github.com/bkaminnski/react/tree/master/01-from-0-to-react-in-15-minutes) tutorial, I installed `stage-2` dependency: `npm install babel-preset-stage-2 --save-dev`. I also added `stage-2` preset in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/03-how-NOT-to-avoid-bind-this/webpack.config.js): `presets: ['es2015', 'react', 'stage-2']`. Now that the code was running fine, it was the time to understand why this `... = () => {...}` syntax was introduced at all.
 
 ## Problem description
 
-1. You bind a method to an event in `render()`, like here: `<div onClick={this.onClick}>click me!</div>` (see [WithBind.jsx]()).
+1. You bind a method to an event in `render()`, like here: `<div onClick={this.onClick}>click me!</div>` (see [WithBind.jsx](https://github.com/bkaminnski/react/blob/master/03-how-NOT-to-avoid-bind-this/WithBind.jsx)).
 2. The method `onClick(e)` refers to `this`, like here: `alert(this.state.message);`
 3. Unless you bind the `onClick(e)` method to `this` object, the code will not work, and you will see something similar in the console: `bundle.js:118 Uncaught TypeError: Cannot read property 'state' of null`.
 4. The solution is to add this line in the constructor of the class `this.onClick = this.onClick.bind(this);`.
@@ -35,7 +35,7 @@ BTW - [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/G
 
 ## Experimental part and sad news
 
-Now, we *do* realise, that this additional line, this binding in the constructor is ugly, unnecessary, boilerplate code. And we'd like to remove it. Which brings us to the `... = () => {...}` syntax. Have a look at the [WithoutBind.jsx]() to see how it looks like. And it looks quite nice, the problem is that even though it *was* present in stage-2, it is now missing in stage-3. Which brings us to a short explanation of what these *stages* actually mean.
+Now, we *do* realise, that this additional line, this binding in the constructor is ugly, unnecessary, boilerplate code. And we'd like to remove it. Which brings us to the `... = () => {...}` syntax. Have a look at the [WithoutBind.jsx](https://github.com/bkaminnski/react/blob/master/03-how-NOT-to-avoid-bind-this/WithoutBind.jsx) to see how it looks like. And it looks quite nice, the problem is that even though it *was* present in stage-2, it is now missing in stage-3. Which brings us to a short explanation of what these *stages* actually mean.
 
 For a complete reference, please have a look at [this online book](https://leanpub.com/exploring-es2016-es2017/read), *Exploring ES2016 and ES2017* by Axel Rauschmayer. Here let me quote, what particular stages mean.
 
@@ -53,4 +53,4 @@ As of now, 24th of October 2016, [babel-preset-stage-3](https://www.npmjs.com/pa
 
 ## No big deal, after all
 
-Since I don't like having this additional line in the constructor, and it looks like new syntax has not made it into the candidate stage, for now, I will just go with an inlined version of my initial approach. And maybe one day I will try other possible approaches described [here](http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html). Nevertheless, this whole learning process was quite fun.
+Since I don't like having this additional line in the constructor, and it looks like the new syntax has not made it into the candidate stage, for now, I will just go with an inlined version of my initial approach. And maybe one day I will try other possible approaches described [here](http://egorsmirnov.me/2015/08/16/react-and-es6-part3.html). Nevertheless, this whole learning process was quite fun.
