@@ -1,2 +1,1 @@
-import Descriptions from './Descriptions.jsx';
-
+import DescriptionSlice from './DescriptionSlice.jsx';

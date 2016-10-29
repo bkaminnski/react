@@ -2,7 +2,7 @@ import React from 'react';
 import Description from './Description.jsx';
 import DescriptionsClient from './DescriptionsClient.js';
 
-export default class Descriptions {
+export default class DescriptionSlice {
 
     constructor() {
         this.descriptionsClient = new DescriptionsClient();
@@ -17,11 +17,11 @@ export default class Descriptions {
 
     transformIntoSlice(descriptions) {
         return {
-            name: 'descriptions',
+            name: 'description',
             priority: 200,
-            fragments: descriptions.map(d => ({
-                linkId: d.linkId,
-                component: <Description key={d.linkId} description={d.description} />
+            fragments: descriptions.map(description => ({
+                linkId: description.linkId,
+                component: <Description key={'description-' + description.linkId} description={description.description} />
             }))
         };
     }
@@ -31,5 +31,5 @@ export default class Descriptions {
     }
 }
 
-let descriptions = new Descriptions();
-descriptions.loadTransformAndPublish();
+let descriptionSlice = new DescriptionSlice();
+descriptionSlice.loadTransformAndPublish();

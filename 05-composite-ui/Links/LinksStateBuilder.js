@@ -17,7 +17,7 @@ export default class LinksStateBuilder {
                 linksMap[link.id] = link;
             });
         this.slices
-            .sort((s1, s2) => s2.priority - s1.priority)
+            .sort((s1, s2) => s1.priority - s2.priority)
             .forEach(slice => slice.fragments.forEach(
                 fragment => linksMap[fragment.linkId].components.push(fragment.component)
             ));

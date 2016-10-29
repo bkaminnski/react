@@ -1,4 +1,5 @@
 export default class DescriptionsClient {
+
     loadDescriptions() {
         return new Promise((resolve, reject) => {
             resolve([
