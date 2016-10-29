@@ -1,5 +1,5 @@
 export default class LinksClient {
-    links() {
+    loadLinks() {
         let result = new Promise((resolve, reject) => {
             resolve([
                 { id: 1, url: 'https://www.youtube.com/watch?v=A800BaLBB2k' },

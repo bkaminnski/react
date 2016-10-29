@@ -2,29 +2,42 @@ import LinksClient from './LinksClient.js';
 
 export default class LinksStateBuilder {
 
-    constructor(linksComponent22) {
-        this.linksComponent = linksComponent22;
+    constructor(linksComponent) {
+        this.linksComponent = linksComponent;
         this.linksClient = new LinksClient();
         this.links = [];
-        this.fragments = [];
+        this.slices = [];
     }
 
     rebuildState() {
+        let linksMap = {};
+        this.links
+            .forEach(link => {
+                link.components = [];
+                linksMap[link.id] = link;
+            });
+        this.slices
+            .sort((s1, s2) => s2.priority - s1.priority)
+            .forEach(slice => slice.fragments.forEach(
+                fragment => linksMap[fragment.linkId].components.push(fragment.component)
+            ));
         this.linksComponent.setState({ links: this.links });
     }
 
     loadLinks() {
-        let linksStateBuilder = this;
         this.linksClient
-            .links()
-            .then(function (l) { this.links = l; this.rebuildState(); }.bind(this));
+            .loadLinks()
+            .then(links => {
+                this.links = links;
+                this.rebuildState();
+            });
     }
 
     subscribeToEvents() {
-        this.subscriptionToken = PubSub.subscribe('uiEvent.linkFragment.wasLoaded', function (msg, data) {
-            // this.fragments.push(data);
-            // this.rebuildState();
-        }.bind(this));
+        this.subscriptionToken = PubSub.subscribe('uiEvent.linksSlice.wasLoaded', (msg, slice) => {
+            this.slices.push(slice);
+            this.rebuildState();
+        });
     }
 
     unsubscribeFromEvents() {

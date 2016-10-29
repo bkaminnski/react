@@ -5,8 +5,8 @@ import Link from './Link.jsx';
 
 class Links extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.linksStateBuilder = new LinksStateBuilder(this);
         this.state = { links: [] };
     }
@@ -21,13 +21,9 @@ class Links extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                {this.state.links.map(l =>
-                    <Link key={l.id} link={l} />
-                )}
-            </div>
-        )
+        return <div>{this.state.links.map(link =>
+            <Link key={link.id} link={link} />
+        )}</div>
     }
 }
 

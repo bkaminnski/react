@@ -7,7 +7,7 @@ export default class Link extends React.Component {
             <div>
                 <div><b>Url:</b> <a href={this.props.link.url}>{this.props.link.url}</a></div>
                 <div><b>Keywords:</b> </div>
-                <div><b>Description:</b> </div>
+                {this.props.link.components}
                 <hr />
             </div>
         )
