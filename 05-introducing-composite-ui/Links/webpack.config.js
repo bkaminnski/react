@@ -1,11 +1,8 @@
 module.exports = {
-  entry: './keywords.js',
-  output: {
-    path: '../Links/',
-    filename: 'keywords-bundle.js'
-  },
-  module: {
-    loaders: [
+  entry: './src/links.js',
+  output: { path: __dirname, filename: 'links-bundle.js' },
+  module: {
+    loaders: [
       {
         test: /.jsx?$/,
         loader: 'babel-loader',
@@ -15,5 +12,5 @@ module.exports = {
         }
       }
     ]
-  },
+  },
 };

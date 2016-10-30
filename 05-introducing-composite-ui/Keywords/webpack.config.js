@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './description.js',
+  entry: './src/keywords.js',
   output: {
     path: '../Links/',
-    filename: 'description-bundle.js'
+    filename: 'keywords-bundle.js'
   },
   module: {
     loaders: [

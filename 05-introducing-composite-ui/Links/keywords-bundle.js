@@ -46,7 +46,7 @@
 
 	'use strict';
 
-	var _KeywordsSlice = __webpack_require__(37);
+	var _KeywordsSlice = __webpack_require__(1);
 
 	var _KeywordsSlice2 = _interopRequireDefault(_KeywordsSlice);
 
@@ -68,44 +68,59 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Keywords = __webpack_require__(35);
+
+	var _Keywords2 = _interopRequireDefault(_Keywords);
+
+	var _KeywordsClient = __webpack_require__(36);
+
+	var _KeywordsClient2 = _interopRequireDefault(_KeywordsClient);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var KeywordsSlice = function () {
+	    function KeywordsSlice() {
+	        _classCallCheck(this, KeywordsSlice);
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Keywords = function (_React$Component) {
-	    _inherits(Keywords, _React$Component);
-
-	    function Keywords() {
-	        _classCallCheck(this, Keywords);
-
-	        return _possibleConstructorReturn(this, (Keywords.__proto__ || Object.getPrototypeOf(Keywords)).apply(this, arguments));
+	        this.keywordsClient = new _KeywordsClient2.default();
 	    }
 
-	    _createClass(Keywords, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    'Keywords:'
-	                ),
-	                ' ',
-	                this.props.keywords
-	            );
+	    _createClass(KeywordsSlice, [{
+	        key: 'loadTransformAndPublish',
+	        value: function loadTransformAndPublish() {
+	            this.keywordsClient.loadKeywords().then(this.transformIntoSlice).then(this.publish);
+	        }
+	    }, {
+	        key: 'transformIntoSlice',
+	        value: function transformIntoSlice(keywordsList) {
+	            return {
+	                name: 'keywords',
+	                priority: 100,
+	                fragments: keywordsList.map(function (keywords) {
+	                    return {
+	                        linkId: keywords.linkId,
+	                        component: _react2.default.createElement(_Keywords2.default, { key: 'keywords-' + keywords.linkId, keywords: keywords.keywords })
+	                    };
+	                })
+	            };
+	        }
+	    }, {
+	        key: 'publish',
+	        value: function publish(slice) {
+	            PubSub.publish('uiEvent.linksSlice.wasLoaded', slice);
 	        }
 	    }]);
 
-	    return Keywords;
-	}(_react2.default.Component);
+	    return KeywordsSlice;
+	}();
 
-	exports.default = Keywords;
+	exports.default = KeywordsSlice;
+
+
+	var keywordsSlice = new KeywordsSlice();
+	keywordsSlice.loadTransformAndPublish();
 
 /***/ },
 /* 2 */
@@ -4285,6 +4300,61 @@
 
 /***/ },
 /* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Keywords = function (_React$Component) {
+	    _inherits(Keywords, _React$Component);
+
+	    function Keywords() {
+	        _classCallCheck(this, Keywords);
+
+	        return _possibleConstructorReturn(this, (Keywords.__proto__ || Object.getPrototypeOf(Keywords)).apply(this, arguments));
+	    }
+
+	    _createClass(Keywords, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    'Keywords:'
+	                ),
+	                ' ',
+	                this.props.keywords
+	            );
+	        }
+	    }]);
+
+	    return Keywords;
+	}(_react2.default.Component);
+
+	exports.default = Keywords;
+
+/***/ },
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4315,77 +4385,6 @@
 	}();
 
 	exports.default = KeywordsClient;
-
-/***/ },
-/* 36 */,
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Keywords = __webpack_require__(1);
-
-	var _Keywords2 = _interopRequireDefault(_Keywords);
-
-	var _KeywordsClient = __webpack_require__(35);
-
-	var _KeywordsClient2 = _interopRequireDefault(_KeywordsClient);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var KeywordsSlice = function () {
-	    function KeywordsSlice() {
-	        _classCallCheck(this, KeywordsSlice);
-
-	        this.keywordsClient = new _KeywordsClient2.default();
-	    }
-
-	    _createClass(KeywordsSlice, [{
-	        key: 'loadTransformAndPublish',
-	        value: function loadTransformAndPublish() {
-	            this.keywordsClient.loadKeywords().then(this.transformIntoSlice).then(this.publish);
-	        }
-	    }, {
-	        key: 'transformIntoSlice',
-	        value: function transformIntoSlice(keywordsList) {
-	            return {
-	                name: 'keywords',
-	                priority: 100,
-	                fragments: keywordsList.map(function (keywords) {
-	                    return {
-	                        linkId: keywords.linkId,
-	                        component: _react2.default.createElement(_Keywords2.default, { key: 'keywords-' + keywords.linkId, keywords: keywords.keywords })
-	                    };
-	                })
-	            };
-	        }
-	    }, {
-	        key: 'publish',
-	        value: function publish(slice) {
-	            PubSub.publish('uiEvent.linksSlice.wasLoaded', slice);
-	        }
-	    }]);
-
-	    return KeywordsSlice;
-	}();
-
-	exports.default = KeywordsSlice;
-
-
-	var keywordsSlice = new KeywordsSlice();
-	keywordsSlice.loadTransformAndPublish();
 
 /***/ }
 /******/ ]);
