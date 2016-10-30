@@ -33,7 +33,7 @@ Now continue to the **Run the project** section below.
 ## Create files
 
 Type `code .` to open Visual Studio Code. We will need `index.html` as an entry page for the app,
-```
+```html
 <!doctype html>
 <html>
   <head>
@@ -48,12 +48,12 @@ Type `code .` to open Visual Studio Code. We will need `index.html` as an entry 
 ```
 
 and `app.js` as the main script of application.
-```
+```javascript
 import HelloWorld from './HelloWorld.jsx';
 ```
 
 The `HelloWorld.jsx` will be our first component.
-```
+```javascript
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Message from './Message.jsx';
@@ -68,7 +68,7 @@ ReactDOM.render(<HelloWorld/>, document.getElementById('helloWorld'));
 ```
 
 It depends on another component, a `Message` in the `Message.jsx` file.
-```
+```javascript
 import React from 'react';
 
 export default class Message extends React.Component {
@@ -82,7 +82,7 @@ export default class Message extends React.Component {
 ```
 
 Before runnig the project, we need a webpack configuration in `webpack.config.js` file.
-```
+```javascript
 module.exports = {
   entry: './app.js',
   output: { path: __dirname, filename: 'bundle.js' },
