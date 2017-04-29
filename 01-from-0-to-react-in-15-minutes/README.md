@@ -18,7 +18,7 @@ At the end, you will have a simplistic react project written in ES2015, transpil
 - Install required dependencies:
     - `npm install react react-dom --save`,
     - `npm install babel-loader babel-core babel-preset-es2015 babel-preset-react webpack --save-dev`,
-    - `npm install webpack-dev-server -g`.
+    - `npm install webpack-dev-server`.
 
 Now continue to the **Create files** section below.
 
