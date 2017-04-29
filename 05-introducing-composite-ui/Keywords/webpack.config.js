@@ -1,7 +1,9 @@
+var path = require('path');
+
 module.exports = {
   entry: './src/keywords.js',
   output: {
-    path: '../Links/',
+    path: path.join(__dirname, '../Links/'),
     filename: 'keywords-bundle.js'
   },
   module: {
