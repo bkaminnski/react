@@ -65,7 +65,7 @@ Now, we will add Bootstrap to the project, it will be SASS version of Bootstrap:
     $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
     @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
     ```
-- add Bootstrap components do demonstrate that Bootstrap style sheet was loaded (see [Message.jsx](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/Message.jsx)); note that CSS class has to be specified in `className` attribute in react component (and not `class` attribute as in a regular HTML)
+- add Bootstrap components to demonstrate that Bootstrap style sheet was loaded (see [Message.jsx](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/Message.jsx)); note that CSS class has to be specified in `className` attribute in react component (and not `class` attribute as in a regular HTML)
 - now, the *Dropdown* is visible, however it's not fully working yet - this is because we need to add Bootstrap javascript to the project
 
 ## Third (final) step: Bootstrap with javascript (lame approach)
