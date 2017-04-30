@@ -1,6 +1,6 @@
 # SASS + Bootstrap on Webpack
 
-This is a simple example of using SAAS CSS preprocessor with Bootstrap on Webpack.
+This is a simple example of using SASS CSS preprocessor with Bootstrap on Webpack.
 
 ## First: SASS
 
