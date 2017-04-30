@@ -65,8 +65,25 @@ Now, we will add Bootstrap to the project, it will be SASS version of Bootstrap:
     $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
     @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
     ```
-- add Bootstrap components do demonstrate that Bootstrap style sheet was loaded (see [Message.jsx](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/Message.jsx)); note that CSS class has to be specified in `className` attribute in react component (and not `class` attribute as in regular HTML)
+- add Bootstrap components do demonstrate that Bootstrap style sheet was loaded (see [Message.jsx](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/Message.jsx)); note that CSS class has to be specified in `className` attribute in react component (and not `class` attribute as in a regular HTML)
 - now, the *Dropdown* is visible, however it's not fully working yet - this is because we need to add Bootstrap javascript to the project
+
+## Third (final) step: Bootstrap with javascript (lame approach)
+
+To fully function, Bootstrap requires its javascript library (which requires jquery). This solution is probably not the most *professional* one, as it skips webpack and npm dependencies. On the positive side however, it worked in my case and it's also simple:
+
+- copy `<this project location>/node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js` (this location became available after running `npm install bootstrap-sass --save`) into `<this project location>/libs/bootstrap.min.js`
+- download `jquery.min.js` into `<this project location>/libs/jquery.min.js`
+- add these imports to the [index.html](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/index.html) (the order of imports is important):
+    ```html
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
+    ```
+- click on the *Dropdown* to see, that it is now working
+
+I tried more elaborate solution, with bundling `bootstrap.js` by webpack. This approach failed, because Bootstrap could not get access to jquery. I went astray using [imports-loader](https://www.npmjs.com/package/imports-loader) and budling `bootstrap.js` in different ways - but with no luck. 
+
+**In case you know the right solution, please let me know!** (twitt me at @bkaminnski ([shortcut here](https://twitter.com/intent/tweet?text=@bkaminnski )) or send me an e-mail bartosz.kaminski[at]zoho.com - thank you!)
 
 # Explanations
 
