@@ -7,7 +7,7 @@ This is a simple example of using SAAS CSS preprocessor with Bootstrap on Webpac
 What we need in addition to the setup presented in [this tutorial](https://github.com/bkaminnski/react/tree/master/01-from-0-to-react-in-15-minutes), is to:
 
 - install compile time dependencies: `npm install style-loader css-loader sass-loader node-sass --save-dev`,
-- configure a new loader for `.scss` files in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/webpack.config.js): 
+- configure a sequence of loaders for `.scss` files in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/webpack.config.js): 
     ```javascript
     (...)
     {
