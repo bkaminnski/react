@@ -1,6 +1,15 @@
+var webpack = require("webpack");
+
 module.exports = {
-  entry: './app.js',
+  entry: {
+    app: "./app.js",
+    vendor: ["jquery", "bootstrap-sass"],
+  },
   output: { path: __dirname, filename: 'bundle.js' },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({ name: "vendor", filename: "vendor.bundle.js" }),
+    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' })
+  ],
   module: {
     loaders: [
       {

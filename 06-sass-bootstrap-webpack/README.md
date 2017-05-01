@@ -68,22 +68,34 @@ Now, we will add Bootstrap to the project, it will be SASS version of Bootstrap:
 - add Bootstrap components to demonstrate that Bootstrap style sheet was loaded (see [Message.jsx](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/Message.jsx)); note that CSS class has to be specified in `className` attribute in react component (and not `class` attribute as in a regular HTML)
 - now, the *Dropdown* is visible, however it's not fully working yet - this is because we need to add Bootstrap javascript to the project
 
-## Third (final) step: Bootstrap with javascript (lame approach)
+## Third (final) step: Bootstrap with javascript (vendor bundle)
 
-To fully function, Bootstrap requires its javascript library (which requires jquery). This solution is probably not the most *professional* one, as it skips webpack and npm dependencies. On the positive side however, it worked in my case and it's also simple:
+To fully function, Bootstrap requires its javascript library (which requires jquery). We will put them into a separate *vendor* bundle:
 
-- copy `<this project location>/node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js` (this location became available after running `npm install bootstrap-sass --save`) into `<this project location>/libs/bootstrap.min.js`
-- download `jquery.min.js` into `<this project location>/libs/jquery.min.js`
-- add these imports to the [index.html](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/index.html) (the order of imports is important):
+- install runtime dependency to jquery: `npm install jquery --save`,
+- add `webpack` declaration in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/webpack.config.js)
+    ```javascript
+    var webpack = require("webpack");
+    ```
+- (still in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/webpack.config.js)) specify `vendor` entry to include both `jquery` and `bootstrap-sass` (both are names of dependencies installed earlier with `npm install ... --save`)
+    ```javascript
+    entry: {
+        app: "./app.js",
+        vendor: ["jquery", "bootstrap-sass"],
+    },
+    ```
+- configure webpack plugins (also in [webpack.config.js](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/webpack.config.js)):
+    ```javascript
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({ name: "vendor", filename: "vendor.bundle.js" }),
+        new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' })
+    ],
+    ```
+- add this import to the [index.html](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/index.html) (before the `bundle.js`):
     ```html
-    <script src="libs/jquery.min.js"></script>
-    <script src="libs/bootstrap.min.js"></script>
+    <script src="vendor.bundle.js"></script>
     ```
 - click on the *Dropdown* to see, that it is now working
-
-I tried more elaborate solution, with bundling `bootstrap.js` by webpack. This approach failed, because Bootstrap could not get access to jquery. I went astray using [imports-loader](https://www.npmjs.com/package/imports-loader) and budling `bootstrap.js` in different ways - but with no luck. 
-
-**In case you know the right solution, please let me know!** (twitt me at @bkaminnski ([shortcut here](https://twitter.com/intent/tweet?text=@bkaminnski )) or send me an e-mail bartosz.kaminski[at]zoho.com - thank you!)
 
 # Explanations
 
@@ -97,3 +109,6 @@ I tried more elaborate solution, with bundling `bootstrap.js` by webpack. This a
     > If the file is greater than the limit (in bytes) the file-loader is used.
 - `file-loader`, makes required files available in a browser with the name of the file being an MD5 hash of its content
 - a `~` character in Bootstrap import `@import "~bootstrap-sass/...` denotes a module (`bootstrap-sass` in this case); provided there was no `~` sign, this would be relative disk location (have a look [here (section *Imports*)](https://github.com/webpack-contrib/sass-loader) for more details)
+- have a look at [this webpack documentation](https://webpack.github.io/docs/code-splitting.html#split-app-and-vendor-code) for more details on vendor bundles
+- `new webpack.optimize.CommonsChunkPlugin` is part of vendor bundle configuration
+- `new webpack.ProvidePlugin` automatically loads jquery in modules, in which `$` or `jQuery` is mentioned (this plugin is described [here](https://webpack.js.org/plugins/provide-plugin/))
