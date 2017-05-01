@@ -93,7 +93,7 @@ To fully function, Bootstrap requires its javascript library (which requires jqu
     ```
 - add this import to the [index.html](https://github.com/bkaminnski/react/blob/master/06-sass-bootstrap-webpack/index.html) (before the `bundle.js`):
     ```html
-    <script src="vendor.bundle.js"></script>
+    <script src="vendor.bundle.js"></script>
     ```
 - click on the *Dropdown* to see, that it is now working
 
